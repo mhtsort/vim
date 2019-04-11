@@ -1,0 +1,100 @@
+snippet	epaldocument
+\documentclass[11pt]{article}
+%\usepackage[top=0.11\paperwidth, bottom=0.23\paperwidth, left=0.17\paperwidth, right=0.17\paperwidth]{geometry}
+\usepackage[top=0.05\paperwidth, bottom=0.15\paperwidth, left=0.1\paperwidth, right=0.1\paperwidth]{geometry}
+\usepackage{fontspec}\usepackage{amsmath}
+\usepackage{tabularx}
+\usepackage{lipsum,blindtext,tasks}  
+\usepackage{adjustbox}
+\usepackage{unicode-math}
+\usepackage{enumitem}
+
+\setromanfont{FreeSerif}
+\setsansfont{FreeSans}
+\setmonofont{FreeMono}
+%%fc-list Για να δείς τις γραμματοσειρες\
+%\setmainfont{GFS Neohellenic}
+%\setmainfont{Roboto}
+\setmainfont{Bookman Old Style}
+%\setmainfont{GFS Artemisia}
+%\setmainfont{Computer Modern Unicode}
+
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\fff}[1]{f\left(#1\right)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%		
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% GREEK LISTS
+%Ελληνικοί χαρακτήρες σε λίστα%
+% \greekalpha,Greekalpha
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+%                                                    V no space here!
+\def\greekalpha#1{\expandafter\@greekalpha\csname c@#1\endcsname}
+\def\@greekalpha#1{\ifcase #1 \or α\or β\or γ\or δ\or ε\or στ\or ζ\or η\or θ\or ι\or κ\or λ\or μ\or ν\or ξ\or ο\or π\or ρ\or σ\or τ\or υ\or φ\or χ\or ψ\or ω\else\@ctreerr \fi}
+\AddEnumerateCounter*{\greekalpha}{\c@greekalpha}{στ}
+%                                                    V no space here!
+\def\Greekalpha#1{\expandafter\@Greekalpha\csname c@#1\endcsname}
+\def\@Greekalpha#1{\ifcase #1 \or Α\or Β\or Γ\or Δ\or Ε\or ΣΤ\or Ζ\or Η\or Θ\or Ι\or Κ\or Λ\or Μ\or Ν\or Ξ\or Ο\or Π\or Ρ\or Σ\or Τ\or Υ\or Φ\or Χ\or Ψ\or Ω\else\@ctreerr \fi}
+
+\AddEnumerateCounter*{\Greekalpha}{\c@Greekalpha}{ΣΤ}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing,math}
+\usetikzlibrary{decorations.text}
+
+\usepackage{fancyhdr}
+\fancyhf{} % sets both header and footer to nothing
+\renewcommand{\headrulewidth}{0pt}
+\pagestyle{fancy}
+\cfoot{	\begin{tikzpicture}[scale=0.5]
+	\draw[decoration={text along path, text align=fit to path,text= {|\tiny |ΦΡΟΝΤΙΣΤΗΡΙΟ ΑΝΕΛΙΞΗ \ },reverse path},rotate=0,decorate] circle(50pt)node{\thepage};
+	\draw [color =white]circle(60pt);
+	\draw circle(40pt);
+	\end{tikzpicture}
+}
+\addtolength{\footskip}{50pt}
+
+
+\newcommand{\monades}[1]{\leavevmode\\ \strut \hfill \textbf{Μονάδες #1}}
+%%%%%%%%%%%%%%% Μαθηματικά macros
+\newcommand{\infr}{+\infty}
+\newcommand{\infl}{-\infty}
+\newcommand{\limxx}[2][x]{\lim\limits_{#1\to#2}}
+\newcommand{\limx}[1]{\lim\limits_{x\to#1}}
+\usepackage{calc}
+\newcommand*{\Resize}[2]{\resizebox{#1}{!}{$#2$}}
+\def \lime #1,#2{\lim\limits_{\Resize{\widthof{$\lim{}$}}{#1 \to #2}}}
+\newcommand{\R}{\mathbb{R}}
+%%%%%%%%%%%%%%%Πίνακας Προσήμων
+\newcommand{\pinakakii}[3]{
+	\begin{tikzpicture}[scale=0.8,anchor=base,baseline=7pt]
+	\def\textarray{{#2}}
+	\def\signarray{{#3}}
+	%Διαστάσεις πινάκων
+	\pgfmathsetmacro \D{dim(\textarray)}
+	\pgfmathsetmacro \Dsign{dim(\signarray)}
+	\foreach \x [count=\xi] in {1,...,\D}
+	\draw[] (\xi,0)--(\xi,1) node[above]{\pgfmathparse{\textarray[\x-1]}\pgfmathresult};
+	\draw  (0,1) node[above]{$-\infty$}-- (\xi+1,1)node[above]{$+\infty$};
+	\draw (0,0) rectangle  (\xi+1,1);
+	\node [left] at (0,0.5) {#1};
+	%Γέμισμα πινάκων
+	\foreach \x [count=\xi] in {1,...,\Dsign}
+	\node at (\xi-0.5,0.5){\pgfmathparse{\signarray[\x-1]}\pgfmathresult};
+	\end{tikzpicture}}
+
+%%%%%%%%%%%%%%
+\usepackage{color, colortbl}\definecolor{Gray}{gray}{0.0}
+%%%%%%%%%%%%%%
+\widowpenalty10000
+\clubpenalty10000
+\usepackage[makeroom]{cancel}%διαγραφή
+\usepackage[many]{tcolorbox}
+\begin{document}
+$0
+\end{document}
+endsnippet

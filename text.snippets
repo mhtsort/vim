@@ -1,0 +1,28 @@
+snippet hello
+$1${1/[A-Z].*/world/g}
+endsnippet
+
+snippet title "Titlelize in the Transformation"
+${1:$0}
+${1/\w+\s*/\u$0/g}
+endsnippet
+snippet "a." "DOCSTRING" r
+{1:`!p 
+print(snip.c)
+snip.rv = match.group(0)
+`} END $0
+
+endsnippet
+snippet "b." "Doc" r
+$0  this.
+endsnippet
+
+
+snippet "chap?t?e?r?" "Latex chapter" rb
+\section{chapter}
+   $0
+\end{chapter}
+endsnippet
+snippet "(\w+).par" "Parenthesis (postfix)" r
+(`!p snip.rv = match.group(1)`$1)$0
+endsnippet
